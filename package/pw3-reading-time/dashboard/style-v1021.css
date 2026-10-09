@@ -1,0 +1,95 @@
+html,body{width:100%;min-height:100%;margin:0;padding:0;background:#fff;color:#111}
+body{font-family:"Noto Sans CJK SC","Droid Sans Fallback",sans-serif;font-size:18px;-webkit-user-select:none}
+button{font:inherit;color:#111;background:#fff;-webkit-tap-highlight-color:transparent}
+#app{width:92%;max-width:1120px;min-width:500px;margin:0 auto;padding:2vh 0 1.4vh}
+.header{height:7.5vh;min-height:72px;position:relative;text-align:center}
+.header h1{margin:0;line-height:6.5vh;font-size:2em}
+.exit{position:absolute;left:0;top:0;width:16%;min-width:105px;height:6vh;min-height:58px;border:2px solid #111;border-radius:16px;font-weight:bold;font-size:1.12em}
+.tabs{display:block;width:100%;margin:0 auto 1.8vh;overflow:hidden;box-sizing:border-box}
+.tab{display:block;float:left;width:32%;margin:0 2% 0 0;box-sizing:border-box;height:6.8vh;min-height:62px;border:2px solid #111;border-radius:16px;font-size:1.18em;font-weight:bold;text-align:center}
+.tab-last{margin-right:0}
+.tab.selected{background:#222;color:#fff}
+.page{display:none}.page.visible{display:block}
+.card{border:2px solid #222;border-radius:20px;padding:2vh 2.5%;margin-bottom:1.8vh;box-sizing:border-box}
+.eyebrow,h2{font-size:1.2em;margin:0 0 1.2vh}.big-number{font-size:3.3em;font-weight:bold;margin:1.4vh 0 1.8vh}
+.summary-row{display:table;width:100%;border-top:1px solid #888;padding-top:1.3vh}.summary-row div{display:table-cell;width:50%;text-align:center}.summary-row div+div{border-left:1px solid #888}.summary-row strong,.summary-row span{display:block}.summary-row strong{font-size:1.35em}.summary-row span{margin-top:.4vh;color:#555}
+.card-title{height:5.5vh;min-height:54px;position:relative;font-size:1.18em}.period{position:absolute;left:25%;right:0;top:-1vh;text-align:center}.period button{width:18%;height:5.5vh;min-height:50px;border:2px solid #111;border-radius:14px;font-size:1.5em}.period strong{display:inline-block;width:42%;font-size:1.15em}
+.chart-card{height:47vh;min-height:420px}.chart{height:34vh;min-height:285px;border-bottom:2px solid #222;white-space:nowrap;text-align:center}.chart:before{content:"";display:inline-block;height:100%;vertical-align:bottom}.bar{display:inline-block;vertical-align:bottom;width:5.2%;margin:0 1.35%;min-height:2px;background:#d3d3d3;border:1px solid #777;box-sizing:border-box;position:relative}.bar.current{background:#222}.bar em{position:absolute;top:-1.6em;left:-50%;width:200%;font-style:normal;font-size:.72em}.months{white-space:nowrap;text-align:center;padding-top:.7vh}.months span{display:inline-block;width:8.3%;font-size:.82em}
+.month-period{height:6vh;position:relative;left:auto;right:auto;top:auto}.month-period button{width:16%}.month-period strong{width:54%}
+.calendar{width:100%;border-collapse:collapse;table-layout:fixed;text-align:center;font-size:1.05em}.calendar th{height:4.5vh}.calendar td{height:6.2vh;padding:0}.day{width:78%;height:82%;border:0;border-radius:12px;position:relative;background:#fff;text-align:center;padding:0}.day-number{display:block;font-size:1.18em;line-height:1.15;font-weight:bold}.day-reading{display:block;margin-top:4px;font-size:.68em;line-height:1;color:#555;font-weight:normal}.day.selected{background:#222;color:#fff}.day.selected .day-reading{color:#fff}.day.outside{color:#aaa}.footnote{border-top:1px solid #999;padding-top:.8vh;margin-top:.5vh;font-weight:bold}
+.detail-card{min-height:25vh}.detail-card h2{font-size:1.25em}.day-total{font-size:1.8em;font-weight:bold;margin:.8vh 0}.detail-row{border-top:1px solid #aaa;padding:1vh 0}.detail-row b{float:right}.empty{color:#666;padding:2vh 0}
+.book-list{min-height:68vh}.book{position:relative;padding:1.35vh 1% 1.6vh;border-top:1px solid #999}.book:first-child{border-top:0}.book strong,.book span{display:block}.book strong{font-size:1.23em;margin:0 18% .6vh 0;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}.book em{position:absolute;right:1%;top:1.6vh;font-style:normal}.progress{height:15px;margin-top:.8vh;background:#ddd;border-radius:8px;overflow:hidden}.progress i{display:block;height:100%;background:#222}.pager{display:table;width:100%;table-layout:fixed;text-align:center}.pager button,.pager span{display:table-cell;width:33%;height:5.5vh;vertical-align:middle}.pager button{border:2px solid #111;border-radius:14px;font-weight:bold}
+#updated{text-align:center;color:#666;font-size:.76em;margin-top:.8vh}
+@media(min-width:1300px){body{font-size:24px}#app{max-width:1500px}.page.visible{width:100%}.chart-card{min-height:540px}}
+@media(max-height:1250px){body{font-size:16px}.chart-card{height:43vh;min-height:330px}.chart{height:29vh;min-height:220px}.calendar td{height:5.5vh}.book-list{min-height:62vh}}
+
+body{font-size:20px}
+html,body{min-height:1500px}
+body{font-size:24px}
+#app{width:92%;max-width:none;min-width:0;padding:22px 0 14px}
+.header{height:100px;min-height:100px}
+.header h1{line-height:90px;font-size:2em}
+.exit{height:74px;min-height:74px;top:4px}
+.tabs{height:86px;margin-bottom:22px}
+.tab{height:78px;min-height:78px}
+.card{padding:24px 30px;margin-bottom:22px}
+.summary{height:300px;min-height:300px}
+.big-number{margin:20px 0 24px}
+.summary-row{padding-top:18px}
+.card-title{height:68px;min-height:68px}
+.period{top:-10px}
+.period button{height:64px;min-height:64px}
+.chart-card{height:760px;min-height:760px}
+.chart{height:590px;min-height:590px}
+.months{padding-top:10px}
+.month-period{height:72px;min-height:72px;top:0}
+.calendar-card{height:720px;min-height:720px;padding-bottom:14px}
+.calendar th{height:54px}
+.calendar td{height:82px}
+.day-number{font-size:28px}
+.day-reading{font-size:16px;margin-top:5px}
+.footnote{padding-top:10px;margin-top:6px}
+.detail-card{height:350px;min-height:350px}
+.detail-row{padding:14px 0}
+.book-list{height:1020px;min-height:1020px}
+.book{height:176px;padding:22px 12px;box-sizing:border-box}
+.book strong{margin-bottom:10px}
+.book em{top:28px}
+.progress{height:16px;margin-top:12px}
+.pager button,.pager span{height:78px}
+#updated{margin-top:10px}
+
+#bookRows{font-size:0;text-align:left}
+.book-tile{display:inline-block;vertical-align:top;width:31%;margin:0 1.15% 24px;box-sizing:border-box;font-size:24px}
+.cover-wrap{display:table;width:100%;height:338px;border:2px solid #333;border-radius:10px;background:#eee;box-sizing:border-box;overflow:hidden}
+.cover-inner{display:table-cell;width:100%;height:338px;text-align:center;vertical-align:middle}
+.cover-inner img{display:inline-block;max-width:100%;max-height:334px;border:0;vertical-align:middle}
+.cover-empty{display:inline-block;color:#666;font-size:.8em}
+.book-title{display:block;height:62px;line-height:31px;margin:10px 2px 4px;overflow:hidden;font-size:.86em}
+.book-meta{display:block;height:30px;line-height:30px;color:#444;font-size:.7em;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.shelf-progress{height:10px;margin-top:6px}
+
+.statistics-card{padding-top:18px;padding-bottom:16px}
+.monthly-chart{height:250px;min-height:250px}
+.weekly-head{height:48px;line-height:48px;margin-top:12px;padding-top:8px;border-top:1px solid #999;font-size:1.05em}
+.weekly-head span{float:right;font-size:.86em;font-weight:normal}
+.week-chart{height:220px;border-bottom:2px solid #222;white-space:nowrap;text-align:center}
+.week-chart:before{content:"";display:inline-block;height:100%;vertical-align:bottom}
+.week-bar{display:inline-block;vertical-align:bottom;width:8%;margin:0 3%;min-height:2px;background:#d3d3d3;border:1px solid #777;box-sizing:border-box;position:relative}
+.week-bar.current{background:#222}
+.week-bar em{position:absolute;top:-1.7em;left:-55%;width:210%;font-style:normal;font-size:.68em;white-space:nowrap}
+.week-days{white-space:nowrap;text-align:center;padding-top:8px}
+.week-days span{display:inline-block;width:14%;font-size:.78em}
+
+.day{width:84%;height:88%}
+.day-number{font-size:34px;line-height:1.08}
+.day-reading{font-size:21px;line-height:1.05;margin-top:7px}
+
+.book-list{height:1020px;min-height:1020px;overflow:hidden}
+.book-tile{margin-bottom:18px}
+.cover-wrap{height:292px}
+.cover-inner{height:292px}
+.cover-inner img{max-height:288px}
+.book-title{height:54px;line-height:27px;margin-top:8px;margin-bottom:3px}
+.book-meta{height:26px;line-height:26px}
+.shelf-progress{height:8px;margin-top:5px}

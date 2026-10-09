@@ -1,0 +1,13 @@
+<!DOCTYPE html><html><head><meta charset="utf-8" />
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" />
+<title>阅读记录</title>
+<link rel="stylesheet" href="style-v1021.css" /><link rel="stylesheet" href="pw3-layout-v3.css" /><link rel="stylesheet" href="pw3-dynamic-v11.css" />
+<script src="data.js"></script><script src="pw3-dynamic-v1.js"></script>
+</head><body><div id="app"><div class="header"><h1>阅读记录</h1></div>
+<div class="tabs"><button class="tab selected" data-page="total" type="button">累计时长</button><button class="tab" data-page="daily" type="button">每日时长</button><button class="tab tab-last" data-page="books" type="button">阅读书籍</button></div>
+<div id="total" class="page visible"><div class="card summary"><div class="eyebrow">总阅读时长</div><div id="totalTime" class="big-number">0秒</div><div class="summary-row"><div><strong id="totalDays">0天</strong><span>阅读天数</span></div><div><strong id="dailyAverage">0秒</strong><span>日均</span></div></div></div>
+<div class="card chart-card statistics-card"><div class="card-title"><b>每月阅读时长</b><span class="period"><button id="yearPrev" type="button">‹</button><strong id="chartYear"></strong><button id="yearNext" type="button">›</button></span></div><div id="chart" class="chart monthly-chart"></div><div id="months" class="months"></div><div class="weekly-head"><b>本周阅读时长</b><span>日均 <strong id="weekAverage">0秒</strong></span></div><div id="weekChart" class="week-chart"></div><div id="weekDays" class="week-days"></div></div></div>
+<div id="daily" class="page"><div class="card calendar-card"><div class="period month-period"><button id="monthPrev" type="button">‹</button><strong id="calendarMonth"></strong><button id="monthNext" type="button">›</button></div><table class="calendar"><thead><tr><th>一</th><th>二</th><th>三</th><th>四</th><th>五</th><th>六</th><th>日</th></tr></thead><tbody id="calendarBody"></tbody></table><div id="monthDays" class="footnote"></div></div><div class="card detail-card"><h2 id="detailDate"></h2><div id="detailTotal" class="day-total"></div><div id="detailBooks"></div></div></div>
+<div id="books" class="page books-page"><div class="card book-list no-cover-list"><h2>已阅读书籍</h2><div id="bookRows"></div></div><div class="pager"><button id="bookPrev" type="button">上一页</button><span id="bookPage"></span><button id="bookNext" type="button">下一页</button></div></div>
+<div id="updated"></div></div></body></html>

@@ -1,0 +1,25 @@
+/* Dynamic-only corrections layered over the approved fixed PW3 layout. */
+.calendar button.day{display:block;box-sizing:border-box;margin:0 auto;color:#111;text-decoration:none;border:0;padding:0}
+.calendar button.day.selected{color:#fff}
+
+/* All three pages own the same vertical space. */
+.page{height:932px;min-height:932px}
+.books-page{height:932px;min-height:932px}
+.books-page .pager button{display:table-cell;width:33%;height:80px;vertical-align:middle;box-sizing:border-box;border:2px solid #111;border-radius:14px;font-weight:bold;background:#fff;color:#111}
+.books-page .pager button.disabled,.books-page .pager button:disabled{color:#aaa;border-color:#aaa}
+.period button.disabled,.period button:disabled{color:#aaa;border-color:#aaa}
+.book-row{font-size:24px}
+.book-progress i{display:block;height:100%;background:#222;border-radius:9px}
+.detail-row span{display:block;margin-right:24%;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.detail-row b{margin-top:-1.25em}
+.books-page .empty{padding:30px 10px}
+
+/* Fixed heading block; only the book rows scroll inside the card. */
+.detail-card{position:relative;overflow:hidden}
+#detailDate{position:absolute;left:30px;right:30px;top:20px;height:36px;line-height:36px;margin:0}
+#detailTotal{position:absolute;left:30px;right:30px;top:60px;height:52px;line-height:52px;margin:0}
+#detailBooks{position:absolute;left:30px;right:30px;top:118px;bottom:18px;overflow-x:hidden;overflow-y:auto;-webkit-overflow-scrolling:touch}
+#detailBooks::-webkit-scrollbar{width:0;height:0;display:none}
+
+/* Normal-flow footer band, with a small optical correction for the CJK font. */
+#updated{position:relative;display:block;top:-5px;height:80px;line-height:80px;margin:0;text-align:center}
