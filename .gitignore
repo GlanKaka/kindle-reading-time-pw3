@@ -1,0 +1,21 @@
+# User reading records and generated device state
+**/reading-time.tsv
+**/data.js
+**/state.txt
+**/state
+**/report.txt
+**/*.log
+**/*.db
+**/*.db-journal
+**/backups/
+
+# The repository deliberately ships one empty bootstrap snapshot.
+!package/pw3-reading-time/dashboard/data.js
+
+# Kindle screenshot diagnostics
+wininfo_screenshot_*.txt
+
+# Release/build noise
+*.zip
+Thumbs.db
+.DS_Store
