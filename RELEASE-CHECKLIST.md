@@ -16,7 +16,7 @@
 - [x] 由 Echo 通读 README、NOTICE、LICENSE，确认署名和说明符合原作者授权原意。
 - [ ] 在 GitHub 创建仓库后检查首页排版、内部链接与图片是否正常。
 - [x] 已创建首个预览 Release `v0.1.0-preview`。
-- [ ] 创建修复中文书名显示与补充 Hotfix 前置说明的 `v0.1.1-preview` Release。
+- [x] 创建修复中文书名显示与补充 Hotfix 前置说明的 `v0.1.1-preview` Release。
 - [ ] 若能找到第二台兼容设备，从零安装复测后再考虑标记稳定版。
 
 ## 每次打包都要检查
