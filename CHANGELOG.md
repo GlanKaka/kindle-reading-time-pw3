@@ -1,5 +1,11 @@
 # 更新记录
 
+## v0.1.1-preview
+
+- 修复部分中文侧载书籍在阅读记录中显示为拼音内部文件名的问题；同一书籍 ID 可匹配时，现优先显示 Kindle 本地书库中的正式标题。
+- 保留无法匹配书籍 ID 时的原名称回退，不修改或清空已有阅读记录。
+- 补充 Universal Hotfix / SH_Integration 前置条件和保留数据的升级说明。
+
 ## v0.1.0-preview
 
 - 适配 Kindle Paperwhite 3 / 固件 5.16.2.1.1 / LanguageBreak。

@@ -3,7 +3,7 @@
 
 var source=window.READING_DATA||{entries:[],progress:[],generatedAt:""};
 var entries=source.entries||[],progress=source.progress||[];
-var dates={},books={},progressById={},progressByTitle={};
+var dates={},books={},progressById={},progressByTitle={},titleById={};
 var totalSeconds=0,readingDays=0,chartViewYear,calendarYear,calendarMonth,selectedDate,bookPage=1;
 var now=new Date(),today=dateKey(now.getFullYear(),now.getMonth()+1,now.getDate());
 
@@ -26,7 +26,7 @@ function prepareData(){
     var i,e,key,b,p,title;
     for(i=0;i<progress.length;i++){
         p=progress[i];
-        if(p[0]){progressById[p[0]]=p[2]}
+        if(p[0]){progressById[p[0]]=p[2];if(p[1]){titleById[p[0]]=p[1]}}
         if(p[1]){progressByTitle[p[1]]=p[2]}
     }
     for(i=0;i<entries.length;i++){
@@ -34,10 +34,11 @@ function prepareData(){
         if(!e||e.length<4){continue}
         if(!dates[e[0]]){dates[e[0]]={seconds:0,books:{}}}
         dates[e[0]].seconds+=Number(e[2])||0;
-        key=e[1]&&e[1]!=="unknown"?"id:"+e[1]:"title:"+e[3];
-        if(!dates[e[0]].books[key]){dates[e[0]].books[key]={title:e[3],seconds:0}}
+        title=e[1]&&titleById[e[1]]?titleById[e[1]]:e[3];
+        key=e[1]&&e[1]!=="unknown"?"id:"+e[1]:"title:"+title;
+        if(!dates[e[0]].books[key]){dates[e[0]].books[key]={title:title,seconds:0}}
         dates[e[0]].books[key].seconds+=Number(e[2])||0;
-        if(!books[key]){books[key]={id:e[1],title:e[3],seconds:0,firstDate:e[0]}}
+        if(!books[key]){books[key]={id:e[1],title:title,seconds:0,firstDate:e[0]}}
         books[key].seconds+=Number(e[2])||0;
         if(e[0]<books[key].firstDate){books[key].firstDate=e[0]}
         totalSeconds+=Number(e[2])||0;

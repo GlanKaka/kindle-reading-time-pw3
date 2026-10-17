@@ -26,7 +26,7 @@
 | 设备 | Kindle Paperwhite 3（PW3） |
 | 固件 | 5.16.2.1.1 |
 | 越狱 | LanguageBreak |
-| 启动能力 | 可执行 `;log runme`，书库可运行 `.sh` Scriptlet |
+| 启动能力 | 已安装兼容的 Universal Hotfix / SH_Integration；可执行 `;log runme`，书库可运行 `.sh` Scriptlet |
 | 页面 | Kindle Mesquite WebView，动态单页面 |
 | 数据 | Kindle 本地阅读记录与只读书库信息 |
 | 联网 | 不需要 |
@@ -54,14 +54,15 @@
 
 ## 安装前
 
-1. 确认 Kindle 已越狱，并且能够通过搜索框执行 `;log runme`。
-2. 备份重要书籍、阅读记录和现有插件。
-3. 不要把其他设备的 `reading-time.tsv`、`data.js`、日志或数据库备份混入安装包。
-4. 如果已经安装其他阅读计时插件，先保留其数据备份，避免多个计时服务同时运行。
+1. 确认 Kindle 已越狱，并已正确安装与设备兼容、包含 SH_Integration 的 Universal Hotfix。仅能执行 `;log runme` 并不能证明 SH_Integration 已安装；可先将一个可信的 `.sh` Scriptlet 放入 `/documents`，确认它能显示在书库中。
+2. 确认能够通过搜索框执行 `;log runme`。
+3. 备份重要书籍、阅读记录和现有插件。
+4. 不要把其他设备的 `reading-time.tsv`、`data.js`、日志或数据库备份混入安装包。
+5. 如果已经安装其他阅读计时插件，先保留其数据备份，避免多个计时服务同时运行。
 
 ## 安装
 
-1. 从 Releases 下载 `kindle-reading-time-pw3-v0.1.0-preview.zip` 并解压。如果下载的是仓库源码，则安装文件位于 `package` 文件夹。
+1. 从 Releases 下载 `kindle-reading-time-pw3-v0.1.1-preview.zip` 并解压。如果下载的是仓库源码，则安装文件位于 `package` 文件夹。
 2. 将解压后的以下内容复制到 Kindle USB 磁盘根目录。这里的“根目录”是打开 Kindle 盘符后直接看到的最外层，例如本机显示为 `E:\` 时，就复制到 `E:\` 下，不要再放进 `documents` 或其他子文件夹：
    - `RUNME.sh`
    - `UNINSTALL-RUNME.sh`
@@ -73,6 +74,15 @@
 6. 返回书库，找到并打开“PW3阅读时间.sh”。如果暂时没有出现，可稍等书库刷新后再查看。
 
 安装器不会覆盖已有的 `reading-time.tsv`；升级时会先在本地 `backups` 目录创建备份。如果检测到早期测试版的 `pw3-reading-time-test/reading-time.tsv`，会先复制到新的正式目录，并停止旧后台服务；旧目录不会自动删除。
+
+## 从 v0.1.0-preview 升级
+
+1. 为稳妥起见，先备份 Kindle 中的 `/pw3-reading-time/reading-time.tsv`。
+2. 解压新版安装包，将 `RUNME.sh`、`UNINSTALL-RUNME.sh`、`documents` 和 `pw3-reading-time` 复制到 Kindle USB 根目录并选择合并、覆盖同名公开程序文件。安装包不含 `reading-time.tsv`，不会随复制覆盖已有记录。
+3. 安全弹出并拔掉 USB，在 Kindle 搜索框执行一次 `;log runme`。
+4. 打开“PW3阅读时间.sh”确认已有时长仍在；能够按书籍 ID 匹配 Kindle 书库的中文书籍将优先显示正式中文标题。
+
+不要先卸载旧版，也不要删除整个 `pw3-reading-time` 文件夹，否则可能一并删除尚未备份的阅读记录。
 
 ## 使用
 
@@ -100,7 +110,7 @@
 
 - 维护者目前仅在一台 PW3 / 5.16.2.1.1 / LanguageBreak 设备上完成完整测试；KPW4 / 5.18.1.1.1 已有社区成功反馈，但不等同完整回归测试。
 - 全新设备安装流程尚待第二台设备复测。
-- 书名和进度依赖 Kindle 本地书库数据库；侧载格式、元数据质量和数据库状态可能影响识别。
+- 书名和进度依赖 Kindle 本地书库数据库；能够按书籍 ID 匹配时优先显示书库正式标题，匹配不到时回退到阅读器暴露的内部文件名。侧载格式、元数据质量和数据库状态可能影响识别。
 - 与其他计时、翻页、WebView 或电源管理插件并用时可能冲突。
 - 电子墨水刷新和旧 WebView 性能与手机浏览器不同，首次启动可能较慢。
 
