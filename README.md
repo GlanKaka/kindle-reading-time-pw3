@@ -62,6 +62,11 @@
 
 ## 安装
 
+希望保存到电脑或转发给其他使用者时，也可以直接查看两份独立文本教程：
+
+- [第一次安装 v0.1.1-preview](首次安装说明-v0.1.1-preview.txt)
+- [从旧版升级到 v0.1.1-preview](升级说明-v0.1.1-preview.txt)
+
 1. 从 Releases 下载 `kindle-reading-time-pw3-v0.1.1-preview.zip` 并解压。如果下载的是仓库源码，则安装文件位于 `package` 文件夹。
 2. 将解压后的以下内容复制到 Kindle USB 磁盘根目录。这里的“根目录”是打开 Kindle 盘符后直接看到的最外层，例如本机显示为 `E:\` 时，就复制到 `E:\` 下，不要再放进 `documents` 或其他子文件夹：
    - `RUNME.sh`
