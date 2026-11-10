@@ -5,9 +5,13 @@ DATA="$BASE/reading-time.tsv"
 REPORT="$BASE/report.txt"
 STATE="$BASE/state.txt"
 LOG="$BASE/service.log"
+CC_DB="/var/local/cc.db"
 INTERVAL=5
 SLEEP_INTERVAL=30
 SAVE_INTERVAL=30
+CATALOG_DELAY=10
+CATALOG_MAX_AGE=120
+TAB="$(printf '\t')"
 
 mkdir -p "$BASE"
 umask 077
@@ -61,6 +65,39 @@ read_book() {
     [ -n "$title" ] || title="$book_id"
     book_id="$(clean_field "$book_id")"
     title="$(clean_field "$title")"
+    if [ "$book_id" != "unknown" ]; then
+        book_source="lipc"
+    else
+        book_source=""
+    fi
+}
+
+read_catalog_book() {
+    [ -r "$CC_DB" ] || return 1
+    command -v sqlite3 >/dev/null 2>&1 || return 1
+
+    row="$(sqlite3 -readonly -separator "$TAB" "$CC_DB" "SELECT replace(replace(replace(COALESCE(p_cdeKey,''),char(9),' '),char(10),' '),char(13),' '), replace(replace(replace(COALESCE(p_titles_0_nominal,''),char(9),' '),char(10),' '),char(13),' '), COALESCE(p_lastAccess,'') FROM Entries WHERE p_percentFinished IS NOT NULL AND COALESCE(p_mimeType,'') LIKE '%ebook%' ORDER BY p_lastAccess DESC LIMIT 1;" 2>/dev/null)"
+    [ -n "$row" ] || return 1
+
+    catalog_id="$(printf '%s\n' "$row" | cut -f1)"
+    catalog_title="$(printf '%s\n' "$row" | cut -f2)"
+    catalog_access="$(printf '%s\n' "$row" | cut -f3)"
+    case "$catalog_access" in
+        ''|*[!0-9]*) return 1 ;;
+    esac
+
+    catalog_now="$(date +%s)"
+    catalog_age=$((catalog_now-catalog_access))
+    if [ "$catalog_age" -lt 0 ] || [ "$catalog_age" -gt "$CATALOG_MAX_AGE" ]; then
+        return 1
+    fi
+    [ -n "$catalog_id" ] || return 1
+    [ -n "$catalog_title" ] || catalog_title="$catalog_id"
+
+    book_id="$(clean_field "$catalog_id")"
+    title="$(clean_field "$catalog_title")"
+    book_source="catalog"
+    return 0
 }
 
 format_time() {
@@ -83,6 +120,7 @@ write_report() {
         echo "power_state: $power"
         echo "current_book_id: $current_id"
         echo "current_title: $current_title"
+        echo "current_book_source: $current_source"
         echo "today: $(format_time "$today_total")"
         echo "total: $(format_time "$total")"
         echo
@@ -117,10 +155,13 @@ previous="$(date +%s)"
 was_reader=0
 current_id=""
 current_title=""
+current_source=""
+catalog_wait=0
+pending_seconds=0
 service_state="waiting"
 app=""
 power=""
-echo "$(date): service started, pid=$$" >> "$LOG"
+echo "$(date): service started, pid=$$, compat=catalog-fallback-v1" >> "$LOG"
 write_report
 
 while :; do
@@ -138,11 +179,29 @@ while :; do
         metadata="$(prop com.lab126.yjr.annotations getCurrentBookMetadata)"
         read_book "$context" "$metadata"
 
+        if [ "$book_id" = "unknown" ]; then
+            if [ "$was_reader" -eq 1 ] && [ "$current_source" = "catalog" ] && [ -n "$current_id" ] && [ "$current_id" != "unknown" ]; then
+                book_id="$current_id"
+                title="$current_title"
+                book_source="catalog"
+            else
+                if [ "$was_reader" -eq 1 ] && [ "$delta" -gt 0 ] && [ "$delta" -le 15 ]; then
+                    catalog_wait=$((catalog_wait+delta))
+                fi
+                if [ "$catalog_wait" -ge "$CATALOG_DELAY" ]; then
+                    read_catalog_book || true
+                fi
+            fi
+        else
+            catalog_wait=0
+        fi
+
         if [ "$was_reader" -eq 1 ] && [ -n "$current_id" ] && [ "$current_id" != "$book_id" ]; then
             flush
         fi
         current_id="$book_id"
         current_title="$title"
+        current_source="$book_source"
         service_state="reading"
     elif [ "$power" != "active" ]; then
         service_state="sleeping"
@@ -152,20 +211,28 @@ while :; do
     fi
 
     if [ "$was_reader" -eq 1 ] && [ "$reader" -eq 1 ] && [ "$delta" -gt 0 ] && [ "$delta" -le 15 ]; then
-        if [ -n "$bucket_date" ] && [ "$bucket_date" != "$today" ]; then
-            flush
+        if [ -z "$current_id" ] || [ "$current_id" = "unknown" ]; then
+            pending_seconds=$((pending_seconds+delta))
+        else
+            if [ -n "$bucket_date" ] && [ "$bucket_date" != "$today" ]; then
+                flush
+            fi
+            bucket_date="$today"
+            bucket_id="$current_id"
+            bucket_title="$current_title"
+            bucket=$((bucket+delta+pending_seconds))
+            pending_seconds=0
+            [ "$bucket" -ge "$SAVE_INTERVAL" ] && flush
         fi
-        bucket_date="$today"
-        bucket_id="$current_id"
-        bucket_title="$current_title"
-        bucket=$((bucket+delta))
-        [ "$bucket" -ge "$SAVE_INTERVAL" ] && flush
     elif [ "$was_reader" -eq 1 ] && [ "$reader" -eq 0 ]; then
         flush
+        pending_seconds=0
+        catalog_wait=0
+        current_source=""
     fi
 
-    printf 'state=%s\npid=%s\napp=%s\npower=%s\nbook_id=%s\ntitle=%s\nupdated=%s\n' \
-        "$service_state" "$$" "$app" "$power" "$current_id" "$current_title" "$now" \
+    printf 'state=%s\npid=%s\napp=%s\npower=%s\nbook_id=%s\ntitle=%s\nbook_source=%s\nupdated=%s\n' \
+        "$service_state" "$$" "$app" "$power" "$current_id" "$current_title" "$current_source" "$now" \
         > "$STATE.tmp" && mv "$STATE.tmp" "$STATE"
 
     previous="$now"

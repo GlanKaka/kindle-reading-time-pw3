@@ -1,4 +1,4 @@
-# 第一次安装 v0.1.1-preview
+# 第一次安装 v0.1.2-preview
 
 本页适用于此前没有安装过本插件的设备。开始前请先阅读仓库首页的兼容环境和风险说明。
 
@@ -13,7 +13,7 @@
 
 ## 复制安装文件
 
-1. 从 [Releases](https://github.com/GlanKaka/kindle-reading-time-pw3/releases) 下载并解压 `kindle-reading-time-pw3-v0.1.1-preview.zip`。
+1. 从 [Releases](https://github.com/GlanKaka/kindle-reading-time-pw3/releases) 下载并解压 `kindle-reading-time-pw3-v0.1.2-preview.zip`。
 2. 用 USB 将 Kindle 连接到电脑。
 3. 打开 Kindle 盘符的最外层。例如电脑显示 Kindle 为 `E:` 盘，就进入 `E:\`。
 4. 将解压后看到的以下四项直接复制到 Kindle 盘符最外层：
@@ -41,5 +41,6 @@
 - **书库没有“PW3阅读时间.sh”**：优先检查 Universal Hotfix / SH_Integration 是否正确安装，并确认书库筛选条件没有隐藏文档。
 - **安装后没有任何提示**：这是正常情况，等待约 10 秒后直接回书库查找入口。
 - **暂时没有阅读数据**：先使用 Kindle 原生阅读器阅读一会儿，再打开记录页面。
+- **PW3 / 5.13.5 暂时显示未知书籍**：首次进入一本书后请连续阅读至少 15 秒，让本地书库完成更新；本版不会回填旧版已经合并产生的“未知书籍”历史记录。
 - **需要反馈问题**：请提供 Kindle 型号、固件版本、越狱方式和现象；不要公开发送账号、序列号、`reading-time.tsv`、生成后的 `data.js` 或数据库文件。
 

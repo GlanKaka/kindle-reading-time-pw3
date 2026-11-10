@@ -2,7 +2,7 @@
 
 这是 [blah22212 的 Kindle 阅读时长插件](https://github.com/blah22212/kindle-reading-time) 的 Kindle Paperwhite 3 适配版本，由 Echo 在 PW3 真机上测试，并在 Theo（AI）的协助下完成兼容调整与界面整理。
 
-> 当前为发布预览版。安装、旧数据迁移、后台计时和界面已在现有设备验证，但“全新设备从零安装”仍需第二台兼容设备复测后再标记为稳定版。
+> 当前为发布预览版。安装、旧数据迁移、后台计时和界面已在现有设备验证；不同固件的系统接口仍有差异，请先核对下方兼容环境并备份数据。
 
 ## 功能
 
@@ -40,6 +40,7 @@
 | 设备 | 固件 | 结果 | 说明 |
 | --- | --- | --- | --- |
 | Kindle Paperwhite 4（KPW4） | 5.18.1.1.1 | 用户反馈成功 | 越狱方式及完整功能覆盖范围暂未记录 |
+| Kindle Paperwhite 3（PW3） | 5.13.5 | 用户实机验证成功 | LanguageBreak；已验证两本书分别识别、书名、进度与计时；旧版合并产生的“未知书籍”历史记录保持原样 |
 
 ## 原项目作者公开说明中的测试环境
 
@@ -64,10 +65,10 @@
 
 详细教程：
 
-- [第一次安装 v0.1.1-preview](docs/INSTALL.md)
-- [从旧版升级到 v0.1.1-preview](docs/UPGRADE.md)
+- [第一次安装 v0.1.2-preview](docs/INSTALL.md)
+- [从旧版升级到 v0.1.2-preview](docs/UPGRADE.md)
 
-1. 从 Releases 下载 `kindle-reading-time-pw3-v0.1.1-preview.zip` 并解压。如果下载的是仓库源码，则安装文件位于 `package` 文件夹。
+1. 从 Releases 下载 `kindle-reading-time-pw3-v0.1.2-preview.zip` 并解压。如果下载的是仓库源码，则安装文件位于 `package` 文件夹。
 2. 将解压后的以下内容复制到 Kindle USB 磁盘根目录。这里的“根目录”是打开 Kindle 盘符后直接看到的最外层，例如本机显示为 `E:\` 时，就复制到 `E:\` 下，不要再放进 `documents` 或其他子文件夹：
    - `RUNME.sh`
    - `UNINSTALL-RUNME.sh`
@@ -80,7 +81,7 @@
 
 安装器不会覆盖已有的 `reading-time.tsv`；升级时会先在本地 `backups` 目录创建备份。
 
-## 从 v0.1.0-preview 升级
+## 从旧版升级
 
 1. 为稳妥起见，先备份 Kindle 中的 `/pw3-reading-time/reading-time.tsv`。
 2. 解压新版安装包，将 `RUNME.sh`、`UNINSTALL-RUNME.sh`、`documents` 和 `pw3-reading-time` 复制到 Kindle USB 根目录并选择合并、覆盖同名公开程序文件。安装包不含 `reading-time.tsv`，不会随复制覆盖已有记录。
@@ -113,8 +114,8 @@
 
 ## 已知限制
 
-- 维护者目前仅在一台 PW3 / 5.16.2.1.1 / LanguageBreak 设备上完成完整测试；KPW4 / 5.18.1.1.1 已有社区成功反馈，但不等同完整回归测试。
-- 全新设备安装流程尚待第二台设备复测。
+- 维护者目前仅在一台 PW3 / 5.16.2.1.1 / LanguageBreak 设备上完成完整回归；PW3 / 5.13.5 与 KPW4 / 5.18.1.1.1 为社区实机成功反馈，测试覆盖范围不同。
+- PW3 / 5.13.5 缺少新版固件提供的当前书籍接口，本版会在进入原生阅读器约 10 秒后，从 Kindle 本地书库中只读识别最近打开的电子书；快速连续切换书籍时，书名更新可能稍有延迟。
 - 书名和进度依赖 Kindle 本地书库数据库；能够按书籍 ID 匹配时优先显示书库正式标题，匹配不到时回退到阅读器暴露的内部文件名。侧载格式、元数据质量和数据库状态可能影响识别。
 - 与其他计时、翻页、WebView 或电源管理插件并用时可能冲突。
 - 电子墨水刷新和旧 WebView 性能与手机浏览器不同，首次启动可能较慢。

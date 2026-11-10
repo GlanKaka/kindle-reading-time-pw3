@@ -1,6 +1,6 @@
-# 升级到 v0.1.1-preview
+# 升级到 v0.1.2-preview
 
-本页适用于已经安装 `v0.1.0-preview`，希望升级并保留原有阅读记录的设备。
+本页适用于已经安装旧版，希望升级并保留原有阅读记录的设备。
 
 ## 升级前备份
 
@@ -12,7 +12,7 @@
 
 ## 覆盖程序文件
 
-1. 从 [Releases](https://github.com/GlanKaka/kindle-reading-time-pw3/releases) 下载并解压 `kindle-reading-time-pw3-v0.1.1-preview.zip`。
+1. 从 [Releases](https://github.com/GlanKaka/kindle-reading-time-pw3/releases) 下载并解压 `kindle-reading-time-pw3-v0.1.2-preview.zip`。
 2. 将解压后看到的以下四项复制到 Kindle USB 盘符最外层：
 
    - `RUNME.sh`
@@ -36,7 +36,8 @@
 1. 原来的累计时长和每日记录仍然存在。
 2. 能按书籍 ID 与 Kindle 本地书库匹配的中文书籍，优先显示书库中的正式中文标题。
 3. 匹配不到的书籍仍会显示原内部名称，这不代表阅读数据丢失。
+4. 在 PW3 / 5.13.5 上，连续阅读两本不同书籍各至少 30 秒后，两本书应分别显示；旧版已经合并产生的“未知书籍”历史记录会按原样保留。
 
-如果页面看起来仍是旧版，可关闭页面后重新打开一次；`v0.1.1-preview` 已增加脚本版本参数，以降低 WebView 使用旧缓存的概率。
+如果页面看起来仍是旧版，可关闭页面后重新打开一次；页面启动器带有脚本版本参数，以降低 WebView 使用旧缓存的概率。
 
 

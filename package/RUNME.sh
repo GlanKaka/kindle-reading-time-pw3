@@ -1,7 +1,7 @@
 #!/bin/sh
 
 # PW3 reading-time adaptation installer.
-# Verified target: Kindle Paperwhite 3, firmware 5.16.2.1.1, LanguageBreak.
+# Verified targets: Kindle Paperwhite 3, firmware 5.16.2.1.1 and 5.13.5, LanguageBreak.
 
 BASE="/mnt/us/pw3-reading-time"
 LEGACY_BASE="/mnt/us/pw3-reading-time-test"
